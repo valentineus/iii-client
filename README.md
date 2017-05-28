@@ -66,7 +66,7 @@ As a result, you will receive an answer:
 Enjoy!
 
 ## API
-Description of the internal kitchen can be seen on the [documentation page](https://iii-client.github.io/).
+Description of the internal kitchen can be seen on the [documentation page](https://valentineus.github.io/iii-client/).
 
 Found out a mistake or feel a lack of functionality? [issues](https://github.com/valentineus/iii-client/issues)
 
