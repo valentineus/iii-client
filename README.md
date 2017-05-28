@@ -1,4 +1,5 @@
-# III Client
+# III Client [![npm][npm-image]][npm-url]
+
 [npm-image]: https://img.shields.io/npm/v/iii-client.svg
 [npm-url]: https://npmjs.org/package/iii-client
 
