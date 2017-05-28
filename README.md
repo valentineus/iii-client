@@ -1,7 +1,14 @@
-# III Client [![npm][npm-image]][npm-url]
+# III Client
+[![npm][npm-image]][npm-url]
+[![david][david-image]][david-url]
+[![david-dev][david-dev-image]][david-dev-url]
 
 [npm-image]: https://img.shields.io/npm/v/iii-client.svg
 [npm-url]: https://npmjs.org/package/iii-client
+[david-image]: https://david-dm.org/valentineus/iii-client/status.svg
+[david-url]: https://david-dm.org/valentineus/iii-client
+[david-dev-image]: https://david-dm.org/valentineus/iii-client/dev-status.svg
+[david-dev-url]: https://david-dm.org/valentineus/iii-client?type=dev
 
 Simple API for communicating with the bot of the \"iii.ru\" service.
 
