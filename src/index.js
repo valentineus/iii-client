@@ -6,12 +6,13 @@
 
 var http = require('http');
 
+exports.connect = connect;
 /**
  * Connects to the server and returns the connection data.
  * @param {String} uuid - The bot UUID.
  * @param {requestCallback} callback - The callback that handles the response.
  */
-var connect = function(uuid, callback) {
+function connect(uuid, callback) {
     uuid = uuid || '';
 
     if (!_verification(uuid)) {
@@ -23,7 +24,7 @@ var connect = function(uuid, callback) {
         hostname: 'iii.ru',
         path: '/api/2.0/json/Chat.init/' + uuid + '/',
         method: 'GET',
-    }
+    };
 
     const request = http.request(query, function(response) {
         var json = '';
@@ -31,15 +32,12 @@ var connect = function(uuid, callback) {
         response.on('end', () => callback(json.result));
     });
 
-    request.on('error', function(error) {
-        console.error('Error connecting to the server!\n', error.message);
-    });
+    request.on('error', (error) => Error(error.message));
 
     request.end();
 }
 
-exports.connect = connect;
-
+exports.send = send;
 /**
  * Send a message to the server and return a response.
  * @param {Object} raw - The data to send.
@@ -47,7 +45,7 @@ exports.connect = connect;
  * @param {String} raw.text - Message text.
  * @param {requestCallback} callback - The callback that handles the response.
  */
-var send = function(raw, callback) {
+function send(raw, callback) {
     raw = raw || {};
 
     const query = {
@@ -55,7 +53,7 @@ var send = function(raw, callback) {
         hostname: 'iii.ru',
         path: '/api/2.0/json/Chat.request',
         method: 'POST',
-    }
+    };
 
     const data = _createPackage(raw);
 
@@ -65,22 +63,19 @@ var send = function(raw, callback) {
         response.on('end', () => callback(json));
     });
 
-    request.on('error', function(error) {
-        console.error('Error sending the package!\n', error.message);
-    });
+    request.on('error', (error) => Error(error));
 
     request.write(data);
     request.end();
 }
 
-exports.send = send;
-
+exports._encrypt = _encrypt;
 /**
  * Encrypts the incoming data.
  * @param {String} raw - Decrypted data.
  * @returns {String} - Encrypted string.
  */
-var _encrypt = function(raw) {
+function _encrypt(raw) {
     raw = raw || '';
 
     var base64 = Buffer.from(raw).toString('base64');
@@ -88,14 +83,13 @@ var _encrypt = function(raw) {
     return _merger(string).toString('base64');
 }
 
-exports._encrypt = _encrypt;
-
+exports._decrypt = _decrypt;
 /**
  * Decrypts the incoming data.
  * @param {String} raw - Encrypted data.
  * @returns {String} - Decrypted string.
  */
-var _decrypt = function(raw) {
+function _decrypt(raw) {
     raw = raw || '';
 
     var string = Buffer.from(raw, 'base64');
@@ -103,14 +97,13 @@ var _decrypt = function(raw) {
     return Buffer.from(decrypted, 'base64');
 }
 
-exports._decrypt = _decrypt;
-
+exports._decryptJSON = _decryptJSON;
 /**
  * Decrypts an encrypted JSON object.
  * @param {String} raw - Encrypted data.
  * @returns {Object} - Decrypted JSON.
  */
-var _decryptJSON = function(raw) {
+function _decryptJSON(raw) {
     raw = raw || '';
 
     var string = raw.toString('ascii');
@@ -118,14 +111,13 @@ var _decryptJSON = function(raw) {
     return JSON.parse(data);
 }
 
-exports._decryptJSON = _decryptJSON;
-
+exports._merger = _merger;
 /**
  * Merge and convert a string.
  * @param {String} raw - The string to convert.
  * @returns {String} - The converted string.
  */
-var _merger = function(data) {
+function _merger(data) {
     data = data || '';
 
     const salt = Buffer.from('some very-very long string without any non-latin characters due to different string representations inside of variable programming languages');
@@ -137,8 +129,7 @@ var _merger = function(data) {
     return data;
 }
 
-exports._merger = _merger;
-
+exports._createPackage = _createPackage;
 /**
  * Creates an encrypted package to send.
  * @param {Object} raw - The data to send.
@@ -146,7 +137,7 @@ exports._merger = _merger;
  * @param {String} raw.text - Message text.
  * @returns {String} - Encrypted string.
  */
-var _createPackage = function(raw) {
+function _createPackage(raw) {
     raw = raw || {};
 
     if (!raw.text) {
@@ -165,17 +156,14 @@ var _createPackage = function(raw) {
     return _encrypt(json);
 }
 
-exports._createPackage = _createPackage;
-
+exports._verification = _verification;
 /**
  * Validation UUID format string.
  * @param {String} data - The string to check.
  * @returns {Boolean}
  */
-var _verification = function(data) {
+function _verification(data) {
     data = data || '';
     const regexp = new RegExp('^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$', 'i');
     return regexp.test(data);
 }
-
-exports._verification = _verification;
