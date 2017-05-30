@@ -3,7 +3,6 @@
  * @author Valentin Popov <info@valentineus.link>
  * @license See LICENSE.md file included in this distribution.
  */
-
 var http = require('http');
 
 exports.connect = connect;
@@ -15,7 +14,7 @@ exports.connect = connect;
 function connect(uuid, callback) {
     uuid = uuid || '';
 
-    if (!_verification(uuid)) {
+    if (!isVerification(uuid)) {
         throw new Error('The UUID is not a valid value!');
     }
 
@@ -28,7 +27,7 @@ function connect(uuid, callback) {
 
     const request = http.request(query, function(response) {
         var json = '';
-        response.on('data', (raw) => json = _decryptJSON(raw));
+        response.on('data', (raw) => json = decryptJSON(raw));
         response.on('end', () => callback(json.result));
     });
 
@@ -55,12 +54,12 @@ function send(raw, callback) {
         method: 'POST',
     };
 
-    const data = _createPackage(raw);
+    const data = createPackage(raw);
 
     const request = http.request(query, function(response) {
         var json = '';
-        response.on('data', (raw) => json = _decryptJSON(raw));
-        response.on('end', () => callback(json));
+        response.on('data', (raw) => json = decryptJSON(raw));
+        response.on('end', () => callback(json.result));
     });
 
     request.on('error', (error) => Error(error));
@@ -69,55 +68,55 @@ function send(raw, callback) {
     request.end();
 }
 
-exports._encrypt = _encrypt;
+exports.encrypt = encrypt;
 /**
  * Encrypts the incoming data.
  * @param {String} raw - Decrypted data.
  * @returns {String} - Encrypted string.
  */
-function _encrypt(raw) {
+function encrypt(raw) {
     raw = raw || '';
 
     var base64 = Buffer.from(raw).toString('base64');
     var string = Buffer.from(base64);
-    return _merger(string).toString('base64');
+    return mergerString(string).toString('base64');
 }
 
-exports._decrypt = _decrypt;
+exports.decrypt = decrypt;
 /**
  * Decrypts the incoming data.
  * @param {String} raw - Encrypted data.
  * @returns {String} - Decrypted string.
  */
-function _decrypt(raw) {
+function decrypt(raw) {
     raw = raw || '';
 
     var string = Buffer.from(raw, 'base64');
-    var decrypted = _merger(string).toString();
+    var decrypted = mergerString(string).toString();
     return Buffer.from(decrypted, 'base64');
 }
 
-exports._decryptJSON = _decryptJSON;
+exports.decryptJSON = decryptJSON;
 /**
  * Decrypts an encrypted JSON object.
  * @param {String} raw - Encrypted data.
  * @returns {Object} - Decrypted JSON.
  */
-function _decryptJSON(raw) {
+function decryptJSON(raw) {
     raw = raw || '';
 
     var string = raw.toString('ascii');
-    var data = _decrypt(string);
+    var data = decrypt(string);
     return JSON.parse(data);
 }
 
-exports._merger = _merger;
+exports.mergerString = mergerString;
 /**
  * Merge and convert a string.
  * @param {String} raw - The string to convert.
  * @returns {String} - The converted string.
  */
-function _merger(data) {
+function mergerString(data) {
     data = data || '';
 
     const salt = Buffer.from('some very-very long string without any non-latin characters due to different string representations inside of variable programming languages');
@@ -129,7 +128,7 @@ function _merger(data) {
     return data;
 }
 
-exports._createPackage = _createPackage;
+exports.createPackage = createPackage;
 /**
  * Creates an encrypted package to send.
  * @param {Object} raw - The data to send.
@@ -137,14 +136,14 @@ exports._createPackage = _createPackage;
  * @param {String} raw.text - Message text.
  * @returns {String} - Encrypted string.
  */
-function _createPackage(raw) {
+function createPackage(raw) {
     raw = raw || {};
 
     if (!raw.text) {
         throw new Error('There is no data to send!');
     }
 
-    if (!_verification(raw.cuid)) {
+    if (!isVerification(raw.cuid)) {
         throw new Error('Parameter \'CUID\' is not a valid UUID value!');
     }
 
@@ -153,16 +152,16 @@ function _createPackage(raw) {
     data.push(raw.text.toString());
 
     var json = JSON.stringify(data);
-    return _encrypt(json);
+    return encrypt(json);
 }
 
-exports._verification = _verification;
+exports.isVerification = isVerification;
 /**
  * Validation UUID format string.
  * @param {String} data - The string to check.
  * @returns {Boolean}
  */
-function _verification(data) {
+function isVerification(data) {
     data = data || '';
     const regexp = new RegExp('^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$', 'i');
     return regexp.test(data);
