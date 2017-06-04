@@ -1,6 +1,6 @@
 {
   "name": "iii-client",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Simple API for communicating with the bot of the \"iii.ru\" service.",
   "homepage": "https://github.com/valentineus/iii-client",
   "license": "MIT",

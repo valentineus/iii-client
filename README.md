@@ -8,8 +8,7 @@ Simple API for communicating with the bot of the \"iii.ru\" service.
 ## Features
 - A small and light library.
 - Receiving and sending messages.
-- Create sessions, support for any available.
-- Independent of the session or bot.
+- Installation and processing of sessions.
 
 ## Installation
 ```bash
@@ -17,51 +16,26 @@ npm install --save iii-client
 ```
 
 ## Using
-To use the library, you need to know the bot ID.
-It's easy to learn it, you need to go to the home address of a particular bot.
-The address is as follows `http://iii.ru/inf/109cd867-0ef3-4473-af71-7543a9b2fccd`.
-The value `109cd867-0ef3-4473-af71-7543a9b2fccd` and is the required parameter.
+To use the bot will require identification number. The bot address can be of two kinds: `http://iii.ru/inf/109cd867-0ef3-4473-af71-7543a9b2fccd` and `http://109cd867-0ef3-4473-af71-7543a9b2fccd.iii.ru/`. In the address line, the value `109cd867-0ef3-4473-af71-7543a9b2fccd` is the bot identification number.
 
-Initial connection with the bot:
+An example of a connection, receiving session identification and sending a bot message:
 ```javascript
-var bot = require('iii-client');
+import bot from 'iii-client';
 
 var uuid = '109cd867-0ef3-4473-af71-7543a9b2fccd';
 
+// We connect to the system and get a session
 bot.connect(uuid, function(data) {
-    // code...
+    const options = {
+        cuid: data.cuid,
+        text: 'Проверка связи. Ты получил моё сообщение?',
+    }
+
+    // Send the message and process the response
+    bot.send(options, function(raw) {
+        console.log(raw);
+    });
 });
-```
-
-The answer is as follows:
-```javascript
-{
-    cuid: '6791728a-263d-4bc8-9f7f-622856eb55ff',
-    text: {
-    // Lots of text...
-}
-```
-
-The value of `cuid` is a session identifier and should be specified when sending a message:
-```javascript
-const options = {
-    cuid: '6791728a-263d-4bc8-9f7f-622856eb55ff',
-    text: 'Проверка связи. Ты получил моё сообщение?',
-}
-
-bot.send(options, function(raw) {
-    /// code...
-});
-```
-
-As a result, you will receive an answer:
-```javascript
-{
-    result: {
-        text: {
-            value: 'Открой ближайшую к тебе книжку на 30-й странице и перепечатай 13-ю строчку сверху.',
-            // Lots of text...
-}
 ```
 
 Enjoy!
