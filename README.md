@@ -45,6 +45,9 @@ Description of the internal kitchen can be seen on the [documentation page](http
 
 Found out a mistake or feel a lack of functionality? [issues](https://github.com/valentineus/iii-client/issues)
 
+## Examples
+- [iii-for-vk](https://github.com/valentineus/iii-for-vk) - Bot for social network VK;
+
 ## License
 [![JavaScript Style Guide](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/eslint/eslint)
 
