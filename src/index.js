@@ -28,7 +28,10 @@ function connect(uuid, callback) {
     const request = http.request(query, function(response) {
         var json = '';
         response.on('data', (raw) => json = decryptJSON(raw));
-        response.on('end', () => callback(json.result));
+        response.on('end', () => {
+            if (json.error) throw new Error(json.error.message);
+            callback(json.result);
+        });
     });
 
     request.on('error', (error) => Error(error.message));
@@ -59,7 +62,10 @@ function send(raw, callback) {
     const request = http.request(query, function(response) {
         var json = '';
         response.on('data', (raw) => json = decryptJSON(raw));
-        response.on('end', () => callback(json.result));
+        response.on('end', () => {
+            if (json.error) throw new Error(json.error.message);
+            callback(json.result);
+        });
     });
 
     request.on('error', (error) => Error(error));
