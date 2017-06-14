@@ -5,6 +5,8 @@
 
 Simple API for communicating with the bot of the \"iii.ru\" service.
 
+**Attention!** At the moment there are difficulties with the `iii.ru` service, there is a possibility that the service will not be restored. All information on the company's [forum](http://forum.iii.ru/index.php?showtopic=19886).
+
 ## Features
 - A small and light library.
 - Receiving and sending messages.
