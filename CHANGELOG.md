@@ -1,4 +1,10 @@
 # Description of releases
+## 2.0.0 (29-07-2017)
+Features:
+ - Using Promise.
+ - Code refactoring.
+ - Refusal of JSDoc.
+
 ## 1.1.3 (15-06-2017)
 - A health issue notification has been added.
 

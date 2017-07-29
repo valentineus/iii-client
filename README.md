@@ -1,11 +1,10 @@
 # III Client
 [![npm](https://img.shields.io/npm/v/iii-client.svg)](https://www.npmjs.com/package/iii-client)
-[![dependencies Status](https://david-dm.org/valentineus/iii-client/status.svg)](https://david-dm.org/valentineus/iii-client)
-[![devDependencies Status](https://david-dm.org/valentineus/iii-client/dev-status.svg)](https://david-dm.org/valentineus/iii-client?type=dev)
 
 Simple API for communicating with the bot of the \"iii.ru\" service.
 
-**Attention!** At the moment there are difficulties with the `iii.ru` service, there is a possibility that the service will not be restored. All information on the company's [forum](http://forum.iii.ru/index.php?showtopic=19886).
+**Attention!** At the moment there are difficulties with the `iii.ru` service, there is a possibility that the service will not be restored. All information on the company's
+[forum](http://forum.iii.ru/index.php?showtopic=19886).
 
 ## Features
 - A small and light library.
@@ -18,39 +17,54 @@ npm install --save iii-client
 ```
 
 ## Using
-To use the bot will require identification number. The bot address can be of two kinds: `http://iii.ru/inf/109cd867-0ef3-4473-af71-7543a9b2fccd` and `http://109cd867-0ef3-4473-af71-7543a9b2fccd.iii.ru/`. In the address line, the value `109cd867-0ef3-4473-af71-7543a9b2fccd` is the bot identification number.
-
 An example of a connection, receiving session identification and sending a bot message:
 ```javascript
-import bot from 'iii-client';
+import client from 'iii-client';
 
-var uuid = '109cd867-0ef3-4473-af71-7543a9b2fccd';
+const uuid = '109cd867-0ef3-4473-af71-7543a9b2fccd';
+const text = 'Hello, World!';
 
 // We connect to the system and get a session
-bot.connect(uuid, function(data) {
-    const options = {
-        cuid: data.cuid,
-        text: 'Проверка связи. Ты получил моё сообщение?',
-    }
-
+client.connect(uuid).then(session => {
     // Send the message and process the response
-    bot.send(options, function(raw) {
-        console.log(raw);
+    client.send(session.cuid, text).then(answer => {
+        console.info(answer);
     });
-});
+}).catch(error => console.error(error.message));
 ```
 
-Enjoy!
-
 ## API
-Description of the internal kitchen can be seen on the [documentation page](https://valentineus.github.io/iii-client/).
+### Functions
 
-Found out a mistake or feel a lack of functionality? [issues](https://github.com/valentineus/iii-client/issues)
+#### connect(uuid)
+Connects to the server and returns the connection data.
 
-## Examples
-- [iii-for-vk](https://github.com/valentineus/iii-for-vk) - Bot for social network VK;
+**Promise**: <code>Object</code> Answer from the server.
+
+**Rejects**: <code>Error</code> If there are errors in operation.
+
+| Param | Type | Description |
+| --- | --- | --- |
+| uuid | <code>String</code> | The bot ID. |
+
+#### send(cuid, text)
+Send a message to the server and return a response.
+
+**Promise**: <code>Object</code> Answer from the server.
+
+**Rejects**: <code>Error</code> If there are errors in operation.
+
+| Param | Type | Description |
+| --- | --- | --- |
+| cuid | <code>String</code> | Session identifier. |
+| text | <code>String</code> | Message text. |
+
+Found out a mistake or feel a lack of functionality?
+[issues](https://github.com/valentineus/iii-client/issues)
 
 ## License
 [![JavaScript Style Guide](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/eslint/eslint)
 
-[MIT](LICENSE.md). Copyright (c) [Valentin Popov](https://valentineus.link/).
+[MIT](LICENSE.md).
+Copyright (c)
+[Valentin Popov](https://valentineus.link/).
