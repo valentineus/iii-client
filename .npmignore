@@ -62,7 +62,11 @@ typings/
 .c9
 
 # Configuration files
+rollup.config.js
+.eslintrc.json
+.travis.yml
 .gitignore
+.babelrc
 
 # Repository
 .git/
