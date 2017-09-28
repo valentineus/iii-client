@@ -30,7 +30,6 @@ describe('iii-client:', () => {
 
     it('connect():', (done) => {
         connect(uuid, (request) => {
-            console.info(request);
             assert.isObject(request);
             done();
         });
