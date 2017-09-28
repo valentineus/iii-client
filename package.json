@@ -32,13 +32,9 @@
         "rollup": "^0.50.0",
         "rollup-plugin-babel": "^3.0.2",
         "rollup-plugin-node-builtins": "^2.1.2",
-        "rollup-plugin-node-globals": "^1.1.0",
-        "uglify-js": "^3.1.2"
+        "rollup-plugin-node-globals": "^1.1.0"
     },
     "scripts": {
-        "minify-standalone": "uglifyjs --mangle --compress --toplevel --source-map --output dist/standalone.min.js dist/standalone.js",
-        "minify-browser": "uglifyjs --mangle --compress --toplevel --source-map --output dist/bundle.min.js dist/bundle.js",
-        "minify": "npm run minify-browser && npm run minify-standalone",
         "build-standalone": "babel src/index.js --out-file dist/standalone.js",
         "build-browser": "rollup --config rollup.config.js",
         "build": "npm run build-browser && npm run build-standalone",
