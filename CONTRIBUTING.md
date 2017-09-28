@@ -1,25 +1,37 @@
-# Developer's Certificate of Origin 1.1
+# Contributing
+We love pull requests from everyone.
+By participating in this project, you agree to abide by the
+[code of conduct](https://opensource.guide/how-to-contribute).
 
-By making a contribution to this project, I certify that:
+Fork, then clone the repo:
+```bash
+git clone git@github.com:<username>/iii-client.git
+```
 
-* (a) The contribution was created in whole or in part by me and I
-    have the right to submit it under the open source license
-    indicated in the file; or
+Set up your machine:
+```bash
+npm install --only=development
+```
 
-* (b) The contribution is based upon previous work that, to the best
-    of my knowledge, is covered under an appropriate open source
-    license and I have the right under that license to submit that
-    work with modifications, whether created in whole or in part
-    by me, under the same open source license (unless I am
-    permitted to submit under a different license), as indicated
-    in the file; or
+Make sure the tests pass:
+```bash
+npm run test
+```
 
-* (c) The contribution was provided directly to me by some other
-    person who certified (a), (b) or (c) and I have not modified
-    it.
+Make your change.
+Add tests for your change.
+Make the tests pass:
+```bash
+npm run check
+npm run test
+```
 
-* (d) I understand and agree that this project and the contribution
-    are public and that a record of the contribution (including all
-    personal information I submit with it, including my sign-off) is
-    maintained indefinitely and may be redistributed consistent with
-    this project or the open source license(s) involved.
+Push to your fork and
+[submit a pull request](https://github.com/valentineus/iii-client/compare).
+
+Some things that will increase the chance that your pull request is accepted:
+* Write tests.
+* Follow our
+[style guide](https://eslint.org/docs/about).
+* Write a
+[good commit message](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html).
