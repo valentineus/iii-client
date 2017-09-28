@@ -1,6 +1,7 @@
 language: node_js
 
 node_js:
+    - "iojs"
     - "8"
     - "7"
     - "6"
@@ -15,9 +16,9 @@ notifications:
     email:
         - "info@valentineus.link"
 
-# before_install:
-#     - npm install --global nyc
-#     - npm install --global codacy-coverage
+before_install:
+    - npm install --global nyc
+    - npm install --global codacy-coverage
 
 install:
     - npm install --only=production
@@ -25,12 +26,12 @@ install:
 
 script:
     - npm run check
-#     - nyc npm run test
-#     - nyc report --reporter=lcov
+    - nyc npm run test
+    - nyc report --reporter=lcov
 
-# after_success:
-#     - nyc report --reporter=lcov
-#     - cat ./coverage/lcov.info | codacy-coverage
+after_success:
+    - nyc report --reporter=lcov
+    - cat ./coverage/lcov.info | codacy-coverage
 
 jobs:
     include:
