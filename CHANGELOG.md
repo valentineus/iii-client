@@ -1,4 +1,10 @@
 # Description of releases
+## 3.0.0 (29-09-2017)
+Features:
+- Full code refactoring.
+- Added testing system.
+- Return to the callbacks and the rejection of Promise in favor of simplicity and lightness.
+
 ## 2.1.0 (28-09-2017)
 Features:
  - The assembly system has been reworked, now the package is being assembled for use in browsers.
