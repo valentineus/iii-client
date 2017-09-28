@@ -76,8 +76,8 @@ function send(cuid, text, callback) {
  * @description Encrypts the received string.
  */
 function encrypt(data) {
-    var base64 = new Buffer(data).toString('base64');
-    var string = new Buffer(base64);
+    var base64 = Buffer.from(data).toString('base64');
+    var string = Buffer.from(base64);
     return mergerString(string).toString('base64');
 }
 
@@ -87,9 +87,9 @@ function encrypt(data) {
  * @description Decrypts the received string.
  */
 function decrypt(data) {
-    var string = new Buffer(data, 'base64');
+    var string = Buffer.from(data, 'base64');
     var decrypted = mergerString(string).toString();
-    return new Buffer(decrypted, 'base64');
+    return Buffer.from(decrypted, 'base64');
 }
 
 /**
@@ -109,7 +109,7 @@ function decryptJSON(json) {
  * @description Merges the source string.
  */
 function mergerString(data) {
-    var salt = new Buffer('some very-very long string without any non-latin characters due to different string representations inside of variable programming languages');
+    var salt = Buffer.from('some very-very long string without any non-latin characters due to different string representations inside of variable programming languages');
     return data.map((item, index) => {
         return item ^ salt[index % salt.length];
     });
