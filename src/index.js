@@ -1,143 +1,158 @@
-export { connect, send };
 import http from 'http';
 
 /**
- * Connects to the server and returns the connection data.
- * @param {String} The bot ID.
- * @promise {Object} Answer from the server.
- * @rejects {Error} If there are errors in operation.
+ * @param {String} uuid - Bot ID
+ * @param {Function} callback - Function handler
+ * @description Connection to the service and retrieves the session identifier.
  */
-function connect(uuid) {
-    return new Promise((resolve, reject) => {
-        if (!isVerification(uuid)) reject(new Error('The UUID is not a valid value!'));
+function connect(uuid, callback) {
+    if (!isVerification(uuid)) {
+        throw new Error('\'uuid\' invalid variable.');
+    }
 
-        const query = {
-            path: '/api/2.0/json/Chat.init/' + uuid,
-            hostname: 'iii.ru',
-            method: 'GET',
-            port: 80,
-        };
+    var query = {
+        path: `/api/2.0/json/Chat.init/${uuid}`,
+        hostname: 'iii.ru',
+        method: 'GET',
+        port: 80
+    };
 
-        const request = http.request(query, (response) => {
-            let json = '';
-            response.on('data', (raw) => json = decryptJSON(raw));
-            response.on('end', () => {
-                if (json.error) reject(json.error);
-                resolve(json.result);
-            });
+    var request = http.request(query, (response) => {
+        var json = null;
+        response.on('data', (raw) => {
+            json = decryptJSON(raw);
         });
-        request.on('error', (error) => reject(error));
-        request.end();
+        response.on('end', () => {
+            callback(json);
+        });
     });
+    request.on('error', (error) => {
+        callback(error);
+    });
+    request.end();
 }
 
 /**
- * Send a message to the server and return a response.
- * @param {String} cuid - Session identifier.
- * @param {String} text - Message text.
- * @promise {Object} Answer from the server.
- * @rejects {Error} If there are errors in operation.
+ * @param {String} cuid - Session ID
+ * @param {String} text - Send messages
+ * @param {Function} callback - Function handler
+ * @description Sends a message to bot and returns a response.
  */
-function send(cuid, text) {
-    return new Promise((resolve, reject) => {
-        if (!isVerification(cuid)) reject(new Error('The CUID is not a valid value!'));
-        if (!isString(text)) reject(new Error('The parameter is not a string!'));
+function send(cuid, text, callback) {
+    if (!isVerification(cuid)) {
+        throw new Error('\'cuid\' invalid variable.');
+    }
 
-        const query = {
-            path: '/api/2.0/json/Chat.request',
-            hostname: 'iii.ru',
-            method: 'POST',
-            port: 80,
-        };
+    if (!isString(text)) {
+        throw new Error('\'text\' invalid variable.');
+    }
 
-        const request = http.request(query, (response) => {
-            let json = '';
-            response.on('data', (raw) => json = decryptJSON(raw));
-            response.on('end', () => {
-                if (json.error) reject(json.error);
-                resolve(json.result);
-            });
+    var query = {
+        path: '/api/2.0/json/Chat.request',
+        hostname: 'iii.ru',
+        method: 'POST',
+        port: 80,
+    };
+
+    var request = http.request(query, (response) => {
+        var json = null;
+        response.on('data', (raw) => {
+            json = decryptJSON(raw);
         });
-        request.on('error', (error) => reject(error));
-        request.write(createPackage(cuid, text));
-        request.end();
+        response.on('end', () => {
+            callback(json.result);
+        });
     });
+    request.on('error', (error) => {
+        callback(error);
+    });
+    request.write(createPackage(cuid, text));
+    request.end();
 }
 
 /**
- * Encrypts the incoming data.
- * @param {String} Decrypted data.
- * @returns {String} Encrypted string.
+ * @param {String} data - Data for encryption
+ * @returns {String} Encrypted data
+ * @description Encrypts the received string.
  */
 function encrypt(data) {
-    const base64 = Buffer.from(data).toString('base64');
-    const string = Buffer.from(base64);
+    var base64 = Buffer.from(data).toString('base64');
+    var string = Buffer.from(base64);
     return mergerString(string).toString('base64');
 }
 
 /**
- * Decrypts the incoming data.
- * @param {String} Encrypted data.
- * @returns {String} Decrypted string.
+ * @param {String} data - Data for decryption
+ * @returns {String} Decrypted data
+ * @description Decrypts the received string.
  */
 function decrypt(data) {
-    const string = Buffer.from(data, 'base64');
-    const decrypted = mergerString(string).toString();
+    var string = Buffer.from(data, 'base64');
+    var decrypted = mergerString(string).toString();
     return Buffer.from(decrypted, 'base64');
 }
 
 /**
- * Decrypts an encrypted JSON object.
- * @param {String} Encrypted data.
- * @returns {Object} Decrypted JSON.
+ * @param {String} json - Encrypted object
+ * @returns {Object} Decrypted object
+ * @description Decrypts the received object.
  */
 function decryptJSON(json) {
-    const string = json.toString('ascii');
-    const data = decrypt(string);
+    var string = json.toString('ascii');
+    var data = decrypt(string);
     return JSON.parse(data);
 }
 
 /**
- * Merge and convert a string.
- * @param {String} The string to convert.
- * @returns {String} The converted string.
+ * @param {String} data - Source string
+ * @returns {String} Combined string
+ * @description Merges the source string.
  */
 function mergerString(data) {
-    const salt = Buffer.from('some very-very long string without any non-latin characters due to different string representations inside of variable programming languages');
+    var salt = Buffer.from('some very-very long string without any non-latin characters due to different string representations inside of variable programming languages');
     return data.map((item, index) => {
         return item ^ salt[index % salt.length];
     });
 }
 
 /**
- * Creates an encrypted package to send.
- * @param {String} cuid - Session identifier.
- * @param {String} text - Message text.
- * @returns {String} Encrypted string.
+ * @param {String} cuid - Session ID
+ * @param {String} text - Source string
+ * @returns {String} Packed request
+ * @description Creates a package to send.
  */
 function createPackage(cuid, text) {
-    let data = [];
+    var data = [];
     data.push(cuid);
     data.push(text.toString());
-    const json = JSON.stringify(data);
+    var json = JSON.stringify(data);
     return encrypt(json);
 }
 
 /**
- * Validation UUID format string.
- * @param {String} The string to check.
- * @returns {Boolean}
+ * @param {String} value - Variable to check
+ * @returns {Boolean} Result of checking
+ * @description Checks the type of the variable.
  */
-function isVerification(data) {
-    const regexp = new RegExp('^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$', 'i');
-    return regexp.test(data);
+function isVerification(value) {
+    var regexp = new RegExp('^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$', 'i');
+    return regexp.test(value);
 }
 
 /**
- * Determines if a reference is a String.
- * @param {String} The string to check.
- * @returns {Boolean}
+ * @param {String} value - Variable to check
+ * @returns {Boolean} Result of checking
+ * @description Checks the type of the variable.
  */
-function isString(data) {
-    return typeof data === 'string';
+function isString(value) {
+    return typeof value === 'string';
 }
+
+export {
+    isVerification,
+    decryptJSON,
+    connect,
+    decrypt,
+    encrypt,
+    send
+};
