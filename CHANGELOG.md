@@ -1,4 +1,12 @@
 # Description of releases
+## 3.0.1 (29-09-2017)
+Features:
+- Add compatibility with older versions of NodeJS.
+- Removing support for iojs.
+
+Fix:
+- Fixed a bug in the tests.
+
 ## 3.0.0 (29-09-2017)
 Features:
 - Full code refactoring.
