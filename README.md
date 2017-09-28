@@ -23,7 +23,7 @@
     <a href="https://runkit.com/npm/iii-client">
         <img alt="RunKit Badge" src="https://badge.runkitcdn.com/stripe.svg">
     </a>
-    <a href="https://gitter.im/iii-client">
+    <a href="https://gitter.im/valentineus/iii-client">
         <img alt="Gitter Badge" src="https://badges.gitter.im/Join%20Chat.svg">
     </a>
 </p>
