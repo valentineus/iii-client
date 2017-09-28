@@ -12,8 +12,16 @@ Simple API for communicating with the bot of the \"iii.ru\" service.
 - Installation and processing of sessions.
 
 ## Installation
+NodeJS:
 ```bash
 npm install --save iii-client
+```
+
+Browser:
+```html
+<script src="https://unpkg.com/iii-client@latest/dist/bundle.js">
+    /* client - This is the global name for accessing the package */
+</script>
 ```
 
 ## Using

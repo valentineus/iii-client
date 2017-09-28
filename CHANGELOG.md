@@ -1,4 +1,10 @@
 # Description of releases
+## 2.1.0 (28-09-2017)
+Features:
+ - The assembly system has been reworked, now the package is being assembled for use in browsers.
+ - Added a system of automatic assembly and publishing.
+ - Many small improvements to the package architecture.
+
 ## 2.0.0 (29-07-2017)
 Features:
  - Using Promise.
