@@ -3,7 +3,7 @@ import globals from 'rollup-plugin-node-globals';
 import babel from 'rollup-plugin-babel';
 
 export default {
-    moduleName: 'client',
+    moduleName: 'iiiClient',
     dest: 'dist/bundle.js',
     entry: 'src/index.js',
     format: 'iife',
