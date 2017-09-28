@@ -28,15 +28,18 @@ describe('iii-client:', () => {
         assert.equal(data, decrypt(encrypted).toString());
     });
 
-    it('connect():', () => {
+    it('connect():', (done) => {
         connect(uuid, (request) => {
+            console.info(request);
             assert.isObject(request);
+            done();
         });
     });
 
-    it('send():', () => {
+    it('send():', (done) => {
         send(cuid, text, (request) => {
             assert.isObject(request);
+            done();
         });
     });
 });
