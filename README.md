@@ -8,11 +8,10 @@
 Simple API for communicating with the bot of the \"iii.ru\" service.
 
 ## Features
+- Multiplatform library.
 - A small and light library.
-- Works, both in NodeJS, and in the browser.
 - Getting session ID.
 - Sending and receiving messages.
-- Does not process incoming errors.
 
 ## Installation
 NodeJS:
