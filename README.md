@@ -1,32 +1,9 @@
 # III Client
-<p align="justify">
-    <a href="https://www.npmjs.com/package/iii-client">
-        <img alt="NPM" src="https://img.shields.io/npm/v/iii-client.svg">
-    </a>
-    <a href="https://travis-ci.org/valentineus/iii-client">
-        <img alt="Build Status" src="https://travis-ci.org/valentineus/iii-client.svg?branch=master">
-    </a>
-    <a href="https://www.codacy.com/app/valentineus/iii-client">
-        <img alt="Codacy Badge" src="https://api.codacy.com/project/badge/Grade/81b2fdc2f5dd42a6bdc8fdb43640b282">
-    </a>
-    <a href="https://www.codacy.com/app/valentineus/iii-client/files">
-        <img alt="Codacy Coverage Badge" src="https://api.codacy.com/project/badge/Coverage/81b2fdc2f5dd42a6bdc8fdb43640b282">
-    </a>
-    <a href="https://david-dm.org/valentineus/iii-client?type=dev">
-        <img alt="devDependencies Status" src="https://david-dm.org/valentineus/iii-client/dev-status.svg">
-    </a>
-</p>
-<p align="justify">
-    <a href="https://www.libhive.com/providers/npm/packages/iii-client">
-        <img alt="libhive Badge" src="https://www.libhive.com/providers/npm/packages/iii-client/examples/badge.svg">
-    </a>
-    <a href="https://runkit.com/npm/iii-client">
-        <img alt="RunKit Badge" src="https://badge.runkitcdn.com/stripe.svg">
-    </a>
-    <a href="https://gitter.im/valentineus/iii-client">
-        <img alt="Gitter Badge" src="https://badges.gitter.im/Join%20Chat.svg">
-    </a>
-</p>
+[![NPM](https://img.shields.io/npm/v/iii-client.svg)](https://www.npmjs.com/package/iii-client)
+[![Build Status](https://travis-ci.org/valentineus/iii-client.svg?branch=master)](https://travis-ci.org/valentineus/iii-client)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/81b2fdc2f5dd42a6bdc8fdb43640b282)](https://www.codacy.com/app/valentineus/iii-client)
+[![Codacy Coverage Badge](https://api.codacy.com/project/badge/Coverage/81b2fdc2f5dd42a6bdc8fdb43640b282)](https://www.codacy.com/app/valentineus/iii-client/files)
+[![Gitter Badge](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/valentineus/iii-client)
 
 Simple API for communicating with the bot of the \"iii.ru\" service.
 
