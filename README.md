@@ -32,18 +32,17 @@ An example of a connection, receiving session identification and sending a bot m
 import { connect, send } from 'iii-client';
 
 var uuid = '109cd867-0ef3-4473-af71-7543a9b2fccd';
+var cuid = '0340feab-b09e-4960-96e9-c9518b1fb157';
 var text = 'Hello, World!';
 
 /* We connect to the system and get a session */
 connect(uuid, (request) => {
-    console.info(`Session: ${request}`);
-    /* Send the message and process the response */
-    if (request.result) {
-        var cuid = request.result.cuid;
-        send(cuid, text, (answer) => {
-            console.info(`Answer: ${answer}`);
-        });
-    }
+    console.info(`Session: ${request.result.cuid}`);
+});
+
+/* Send the message and process the response */
+send(cuid, text, (answer) => {
+    console.info(`Answer: ${answer.result.text.value}`);
 });
 ```
 
