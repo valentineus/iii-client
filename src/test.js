@@ -29,16 +29,36 @@ describe('iii-client:', () => {
     });
 
     it('connect():', (done) => {
-        connect(uuid, (request) => {
-            assert.isObject(request);
-            done();
-        });
+        var value = 0;
+        var test = () => {
+            connect(uuid, (request) => {
+                if (!typeof request === 'object' && value++ < 5) {
+                    test();
+                }
+                else {
+                    assert.isObject(request);
+                    done();
+                }
+            });
+        }
+
+        test();
     });
 
     it('send():', (done) => {
-        send(uuid, text, (request) => {
-            assert.isObject(request);
-            done();
-        });
+        var value = 0;
+        var test = () => {
+            send(uuid, text, (request) => {
+                if (!typeof request === 'object' && value++ < 5) {
+                    test();
+                }
+                else {
+                    assert.isObject(request);
+                    done();
+                }
+            });
+        }
+
+        test();
     });
 });
