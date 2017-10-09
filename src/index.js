@@ -147,10 +147,6 @@ function isString(value) {
 }
 
 export {
-    isVerification,
-    decryptJSON,
     connect,
-    decrypt,
-    encrypt,
     send
 };
