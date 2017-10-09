@@ -1,4 +1,9 @@
 # Description of releases
+## 3.1.0 (09-10-2017)
+Features:
+- Added support for older platforms.
+- A small patch for testing, conducts a second check.
+
 ## 3.0.1 (29-09-2017)
 Features:
 - Add compatibility with older versions of NodeJS.
