@@ -1,4 +1,5 @@
 import { assert } from 'chai';
+import generator from 'uuid';
 
 import {
     decryptJSON,
@@ -9,8 +10,7 @@ import {
 } from './index';
 
 describe('iii-client:', () => {
-    var uuid = '109cd867-0ef3-4473-af71-7543a9b2fccd';
-    var cuid = '0340feab-b09e-4960-96e9-c9518b1fb157';
+    var uuid = generator.v4();
     var text = 'Hello, World!';
     var data = JSON.stringify({ text });
 
@@ -36,8 +36,7 @@ describe('iii-client:', () => {
     });
 
     it('send():', (done) => {
-        send(cuid, text, (request) => {
-            console.info(request);
+        send(uuid, text, (request) => {
             assert.isObject(request);
             done();
         });

@@ -34,7 +34,8 @@
         "rollup": "^0.50.0",
         "rollup-plugin-babel": "^3.0.2",
         "rollup-plugin-node-builtins": "^2.1.2",
-        "rollup-plugin-node-globals": "^1.1.0"
+        "rollup-plugin-node-globals": "^1.1.0",
+        "uuid": "^3.1.0"
     },
     "scripts": {
         "build-standalone": "babel src/index.js --out-file dist/standalone.js",
