@@ -1,4 +1,3 @@
-import { Buffer } from 'safe-buffer';
 import http from 'http';
 
 /**
@@ -111,9 +110,12 @@ function decryptJSON(json) {
  */
 function mergerString(data) {
     var salt = Buffer.from('some very-very long string without any non-latin characters due to different string representations inside of variable programming languages');
-    return data.map((item, index) => {
-        return item ^ salt[index % salt.length];
-    });
+
+    for (var i = 0; i < data.length; i++) {
+        data[i] ^= salt[i % salt.length];
+    }
+
+    return data;
 }
 
 /**
