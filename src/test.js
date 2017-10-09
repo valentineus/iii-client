@@ -37,6 +37,7 @@ describe('iii-client:', () => {
 
     it('send():', (done) => {
         send(cuid, text, (request) => {
+            console.info(request);
             assert.isObject(request);
             done();
         });
