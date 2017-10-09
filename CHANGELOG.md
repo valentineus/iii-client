@@ -1,4 +1,8 @@
 # Description of releases
+## 3.2.0 (10-10-2017)
+Features:
+- General code refactoring.
+
 ## 3.1.0 (09-10-2017)
 Features:
 - Added support for older platforms.

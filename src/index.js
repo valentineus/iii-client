@@ -7,66 +7,63 @@ import http from 'http';
  */
 function connect(uuid, callback) {
     if (!isVerification(uuid)) {
-        throw new Error('\'uuid\' invalid variable.');
+        throw new Error('The variable \'uuid\' is not valid.');
     }
 
+    var pkg = createPackage(uuid, null);
+    forward(pkg, 'init', callback);
+}
+
+/**
+ * @param {String} uuid - Session ID
+ * @param {String} text - The message you are sending
+ * @param {Function} callback - Function handler
+ * @description Sends a message to bot and returns a response.
+ */
+function send(uuid, text, callback) {
+    if (!isVerification(uuid)) {
+        throw new Error('The variable \'uuid\' is not valid.');
+    }
+
+    if (!isString(text)) {
+        throw new TypeError('\'text\' is not a string');
+    }
+
+    var pkg = createPackage(uuid, text);
+    forward(pkg, 'request', callback);
+}
+
+/**
+ * @param {String} pkg - The package to send
+ * @param {String} path - The final delivery address
+ * @param {Function} callback - Function handler
+ * @description Send the final packet to the server and return the response.
+ */
+function forward(pkg, path, callback) {
     var query = {
-        path: `/api/2.0/json/Chat.init/${uuid}`,
+        path: `/api/2.0/json/Chat.${path}`,
         hostname: 'iii.ru',
-        method: 'GET',
+        method: 'POST',
         port: 80
     };
 
     var request = http.request(query, (response) => {
         var json = null;
+
         response.on('data', (raw) => {
             json = decryptJSON(raw);
         });
+
         response.on('end', () => {
             callback(json);
         });
     });
+
     request.on('error', (error) => {
         callback(error);
     });
-    request.end();
-}
 
-/**
- * @param {String} cuid - Session ID
- * @param {String} text - Send messages
- * @param {Function} callback - Function handler
- * @description Sends a message to bot and returns a response.
- */
-function send(cuid, text, callback) {
-    if (!isVerification(cuid)) {
-        throw new Error('\'cuid\' invalid variable.');
-    }
-
-    if (!isString(text)) {
-        throw new Error('\'text\' invalid variable.');
-    }
-
-    var query = {
-        path: '/api/2.0/json/Chat.request',
-        hostname: 'iii.ru',
-        method: 'POST',
-        port: 80,
-    };
-
-    var request = http.request(query, (response) => {
-        var json = null;
-        response.on('data', (raw) => {
-            json = decryptJSON(raw);
-        });
-        response.on('end', () => {
-            callback(json.result);
-        });
-    });
-    request.on('error', (error) => {
-        callback(error);
-    });
-    request.write(createPackage(cuid, text));
+    request.write(pkg);
     request.end();
 }
 
@@ -119,15 +116,13 @@ function mergerString(data) {
 }
 
 /**
- * @param {String} cuid - Session ID
+ * @param {String} uuid - Session ID
  * @param {String} text - Source string
  * @returns {String} Packed request
  * @description Creates a package to send.
  */
-function createPackage(cuid, text) {
-    var data = [];
-    data.push(cuid);
-    data.push(text.toString());
+function createPackage(uuid, text) {
+    var data = [uuid, text];
     var json = JSON.stringify(data);
     return encrypt(json);
 }
