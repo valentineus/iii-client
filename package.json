@@ -40,7 +40,7 @@
         "build-standalone": "babel src/index.js --out-file dist/standalone.js",
         "build-browser": "rollup --config rollup.config.js",
         "build": "npm run build-browser && npm run build-standalone",
-        "test": "mocha src/test.js --compilers js:babel-core/register",
+        "test": "mocha src/test.js --compilers js:babel-core/register --retries 3",
         "check": "eslint ./src/index.js"
     },
     "dependencies": {

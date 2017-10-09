@@ -9,8 +9,6 @@ import {
 } from './index';
 
 describe('iii-client:', () => {
-    this.retries(3);
-    
     var uuid = '109cd867-0ef3-4473-af71-7543a9b2fccd';
     var cuid = '0340feab-b09e-4960-96e9-c9518b1fb157';
     var text = 'Hello, World!';
