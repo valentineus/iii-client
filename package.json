@@ -42,5 +42,8 @@
         "build": "npm run build-browser && npm run build-standalone",
         "test": "mocha src/test.js --compilers js:babel-core/register",
         "check": "eslint ./src/index.js"
+    },
+    "dependencies": {
+        "safe-buffer": "^5.1.1"
     }
 }

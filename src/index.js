@@ -1,3 +1,4 @@
+import { Buffer } from 'safe-buffer';
 import http from 'http';
 
 /**
