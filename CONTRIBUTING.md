@@ -10,7 +10,7 @@ git clone git@github.com:<username>/iii-client.git
 
 Set up your machine:
 ```bash
-npm install --only=development
+NODE_ENV=development npm install
 ```
 
 Make sure the tests pass:
