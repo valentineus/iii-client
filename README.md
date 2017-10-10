@@ -75,13 +75,13 @@ Connection to the service and retrieves the session identifier.
 
 <a name="send"></a>
 
-## send(cuid, text, callback)
+## send(uuid, text, callback)
 Sends a message to bot and returns a response.
 
 | Param | Type | Description |
 | --- | --- | --- |
-| cuid | <code>String</code> | Session ID |
-| text | <code>String</code> | Send messages |
+| uuid | <code>String</code> | Session ID |
+| text | <code>String</code> | The message you are sending |
 | callback | <code>function</code> | Function handler |
 
 ## License
