@@ -1,4 +1,9 @@
 # Description of releases
+## 3.2.1 (10-10-2017)
+Features:
+- Minimize the published code.
+- Reduction of exported functions.
+
 ## 3.2.0 (10-10-2017)
 Features:
 - General code refactoring.
