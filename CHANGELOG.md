@@ -1,4 +1,8 @@
 # Description of releases
+## 3.2.2 (08-11-2017)
+- Fix a bug when using HTTPS.
+- Expansion of the publication of the package.
+
 ## 3.2.1 (10-10-2017)
 Features:
 - Minimize the published code.

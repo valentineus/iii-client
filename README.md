@@ -1,4 +1,6 @@
 # III Client
+
+[![GitHub Release](https://img.shields.io/github/release/valentineus/simple-container.svg)](https://github.com/valentineus/simple-container/releases)
 [![NPM](https://img.shields.io/npm/v/iii-client.svg)](https://www.npmjs.com/package/iii-client)
 [![Build Status](https://travis-ci.org/valentineus/iii-client.svg?branch=master)](https://travis-ci.org/valentineus/iii-client)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/81b2fdc2f5dd42a6bdc8fdb43640b282)](https://www.codacy.com/app/valentineus/iii-client)
@@ -8,12 +10,14 @@
 Simple API for communicating with the bot of the \"iii.ru\" service.
 
 ## Features
+
 - Multiplatform library.
 - A small and light library.
 - Getting session ID.
 - Sending and receiving messages.
 
 ## Installation
+
 NodeJS:
 ```bash
 npm install --save iii-client
@@ -27,6 +31,7 @@ Browser:
 ```
 
 ## Using
+
 An example of a connection, receiving session identification and sending a bot message:
 ```javascript
 import { connect, send } from 'iii-client';
@@ -47,7 +52,9 @@ send(cuid, text, (answer) => {
 ```
 
 ## API
+
 ## Functions
+
 <dl>
     <dt>
         <a href="#connect">connect(uuid, callback)</a>
@@ -66,6 +73,7 @@ send(cuid, text, (answer) => {
 <a name="connect"></a>
 
 ## connect(uuid, callback)
+
 Connection to the service and retrieves the session identifier.
 
 | Param | Type | Description |
@@ -76,6 +84,7 @@ Connection to the service and retrieves the session identifier.
 <a name="send"></a>
 
 ## send(uuid, text, callback)
+
 Sends a message to bot and returns a response.
 
 | Param | Type | Description |
@@ -85,6 +94,7 @@ Sends a message to bot and returns a response.
 | callback | <code>function</code> | Function handler |
 
 ## License
+
 [![JavaScript Style Guide](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/eslint/eslint)
 
 [MIT](LICENSE.md).

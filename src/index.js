@@ -7,7 +7,7 @@ import http from 'http';
  */
 function connect(uuid, callback) {
     if (!isVerification(uuid)) {
-        throw new Error('The variable \'uuid\' is not valid.');
+        throw new TypeError('The variable \'uuid\' is not valid.');
     }
 
     var pkg = createPackage(uuid, null);
@@ -22,7 +22,7 @@ function connect(uuid, callback) {
  */
 function send(uuid, text, callback) {
     if (!isVerification(uuid)) {
-        throw new Error('The variable \'uuid\' is not valid.');
+        throw new TypeError('The variable \'uuid\' is not valid.');
     }
 
     if (!isString(text)) {
@@ -43,8 +43,8 @@ function forward(pkg, path, callback) {
     var query = {
         path: `/api/2.0/json/Chat.${path}`,
         hostname: 'iii.ru',
-        method: 'POST',
-        port: 80
+        protocol: 'http:',
+        method: 'POST'
     };
 
     var request = http.request(query, (response) => {
