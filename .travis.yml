@@ -9,6 +9,7 @@ node_js:
 
 os:
   - linux
+  - osx
 
 services:
   - docker
