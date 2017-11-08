@@ -1,6 +1,6 @@
 # III Client
 
-[![GitHub Release](https://img.shields.io/github/release/valentineus/simple-container.svg)](https://github.com/valentineus/simple-container/releases)
+[![GitHub Release](https://img.shields.io/github/release/valentineus/iii-client.svg)](https://github.com/valentineus/iii-client/releases)
 [![NPM](https://img.shields.io/npm/v/iii-client.svg)](https://www.npmjs.com/package/iii-client)
 [![Build Status](https://travis-ci.org/valentineus/iii-client.svg?branch=master)](https://travis-ci.org/valentineus/iii-client)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/81b2fdc2f5dd42a6bdc8fdb43640b282)](https://www.codacy.com/app/valentineus/iii-client)
